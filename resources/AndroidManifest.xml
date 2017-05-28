@@ -1,0 +1,1424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.xingin.xhs"
+          android:installLocation="auto">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" /> -->
+    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <!-- <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> -->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+    <!-- <uses-permission android:name="android.permission.WRITE_SMS" /> -->
+    <!-- <permission -->
+    <!-- android:name="android.permission.FLASHLIGHT" -->
+    <!-- android:permissionGroup="android.permission-group.HARDWARE_CONTROLS" -->
+    <!-- android:protectionLevel="normal" /> -->
+    <uses-feature android:name="android.hardware.camera"/>
+    <!-- <uses-feature -->
+    <!-- android:name="android.hardware.camera.front" -->
+    <!-- android:required="false" /> -->
+
+    <permission
+            android:name="com.xingin.xhs.permission.MIPUSH_RECEIVE"
+            android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.xingin.xhs.permission.MIPUSH_RECEIVE"/>
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-feature android:name="android.hardware.nfc.hce" android:required="false"/>
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD"/>
+
+    <application
+            android:name=".app.XhsApplication"
+            android:allowBackup="true"
+            android:configChanges="orientation|keyboardHidden"
+            android:icon="@drawable/icon_logo"
+            android:label="@string/app_name"
+            android:largeHeap="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityTheme"
+            tools:replace="android:icon">
+        <receiver
+                android:name="com.appsflyer.MultipleInstallBroadcastReceiver"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 欢迎页 -->
+
+        <activity
+                android:name=".activity.SplashActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/ActivityTheme.Splash"
+                android:windowSoftInputMode="stateAlwaysHidden">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- <activity android:name="com.xingin.xhs.activity.WelcomeActivity" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:windowSoftInputMode="adjustPan" -->
+        <!-- > -->
+        <!-- </activity> -->
+
+
+        <!-- ChattingActivity -->
+        <activity
+                android:name=".activity.ChattingActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="1"
+                        android:path="/message/shuduizhang"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="message"
+                        android:path="/shuduizhang"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 发现详情 -->
+
+        <activity
+                android:name=".ui.note.NoteDetailActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/TagActivityTheme">
+            <intent-filter>
+                <action android:name="com.xingin.xhs"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                        android:host="discovery"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="1"
+                        android:pathPattern="/item/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="item"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.note.NoteLikesListActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/ActivityTheme"
+                android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden"/>
+        <activity
+                android:name=".activity.explore.HotUserListActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/ActivityTheme"
+                android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="explore"
+                        android:path="/explore_more/users"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activity.explore.HotAlbumListActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/ActivityTheme"
+                android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="explore"
+                        android:path="/explore_more/boards"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activity.explore.FreshNoteListActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/ActivityTheme"
+                android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="explore"
+                        android:path="/explore_more/notes"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 主页 -->
+        <activity
+                android:name=".activity.MainFrameActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"
+                android:theme="@style/MainFrameActivityTheme"
+                android:uiOptions="splitActionBarWhenNarrow"
+                android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+            <intent-filter android:priority="10000">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!-- <data android:scheme="xhsdiscover" android:host="home" /> -->
+                <data
+                        android:host="store"
+                        android:scheme="xhsdiscover"/>
+                <data
+                        android:host="new_note"
+                        android:scheme="xhsdiscover"/>
+                <data
+                        android:host="messages"
+                        android:scheme="xhsdiscover"/>
+                <data
+                        android:host="profile"
+                        android:scheme="xhsdiscover"/>
+                <data
+                        android:host="webview"
+                        android:scheme="xhsdiscover"/>
+                <data
+                        android:host="home"
+                        android:scheme="xhsdiscover"/>
+                <data
+                        android:host="post_note"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 发布 singleTask 多次编辑,仅实例化一次 -->
+        <activity
+                android:name=".activity.post.PushActivity"
+                android:label="@string/app_name"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"
+                android:theme="@style/FragmentActivityTheme"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <!-- WebView -->
+        <activity
+                android:name=".activity.WebViewActivity"
+                android:exported="true"
+                android:hardwareAccelerated="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden">
+            <intent-filter android:priority="10000">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="*.xiaohongshu.com"
+                        android:scheme="http"/>
+            </intent-filter>
+            <intent-filter android:priority="10000">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="*.xiaohongshu.com"
+                        android:scheme="https"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 分类列表页 -->
+        <activity
+                android:name=".ui.note.MyLikeDiscoveryListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+                android:name=".ui.tag.TagNewActivity"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@style/TagActivityTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="1"
+                        android:pathPattern="/list/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="list"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="scenario"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 其他人个人页 -->
+        <activity
+                android:name=".ui.user.UserActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/TagActivityTheme"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="1"
+                        android:pathPattern="/user/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="user"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 添加评论 -->
+        <activity
+                android:name=".activity.AddCommentActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateVisible"/>
+        <activity
+                android:name=".activity.tag.CategoryActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+                android:name=".activity.tag.RecommendTagSelectActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!-- 书签管理 -->
+        <!-- <activity -->
+        <!-- android:name="com.xingin.xhs.activity.BookManageActivity" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:windowSoftInputMode="adjustUnspecified|stateHidden" > -->
+        <!-- </activity> -->
+
+
+        <!-- 评论列表 -->
+        <activity
+                android:name=".ui.message.CommentListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize"/>
+
+        <!-- @ # -->
+        <activity
+                android:name=".activity.ChooseListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden"/>
+
+        <!-- 设置页 -->
+        <activity
+                android:name=".activity.SettingActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+                android:name=".activity.DeveloperActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!-- 消息通知设置 -->
+        <activity
+                android:name=".activity.NotificationSettingActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!-- fan follow -->
+        <activity
+                android:name=".ui.user.FansListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!-- 通用 -->
+        <activity
+                android:name=".activity.ViewPagerActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!-- 评论列表 -->
+
+        <activity
+                android:name=".ui.message.NewCommentListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+                android:name=".ui.message.MyPraiseActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+                android:name=".ui.message.NewNoticeListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden"/>
+
+        <!-- 添加Tag -->
+        <activity
+                android:name=".activity.post.AddTagActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/MainFrameActivityTheme.Translucent"
+                android:windowSoftInputMode="adjustUnspecified|stateVisible"/>
+
+        <!--  -->
+        <activity
+                android:name=".activity.post.GridNewActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/BottomEnterActivityTheme"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!-- 图片处理 -->
+        <activity
+                android:name=".activity.post.ImageProcessNewActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.FullScreen"
+                android:windowSoftInputMode="adjustNothing"/>
+
+        <!-- 图片剪切 -->
+        <activity
+                android:name="com.soundcloud.android.crop.CropImageActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.FullScreen"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+                android:name=".ui.friend.FindFriendActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="recommend"
+                        android:path="/user"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.friend.PhoneFriendsActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"/>
+        <activity
+                android:name=".ui.user.follow.FollowSearchActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateVisible"/>
+        <activity
+                android:name=".ui.user.SocialFollowsUserListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"/>
+        <activity
+                android:name=".activity.tag.TagListActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".ui.friend.WeiboFriendActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"/>
+        <activity
+                android:name=".ui.user.ProfileEditActivity"
+                android:exported="true"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="me"
+                        android:path="/profile"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.user.RankUserActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.account.BindListActivity"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="account"
+                        android:path="/bind"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activity.account.BindSuccessActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.account.PhoneVerifyActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustNothing|stateVisible"/>
+        <activity
+                android:name=".ui.user.RecommendRankUserActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".activity.board.EditWishGroup"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.board.AddFavDialogActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/DialogActivity"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".activity.board.BoardActivity"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="1"
+                        android:pathPattern="/board/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="board"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.shopping.PreSaleEventListActivity"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="goodslist"
+                        android:path="/pre_store"
+                        android:scheme="xhsdiscover"/>
+                <data
+                        android:host="goodslist"
+                        android:pathPattern="/pre_store/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <!-- 添加Tag -->
+        <activity
+                android:name=".activity.MaintainTipActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".activity.account.FinishBindInfoActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateVisible|adjustResize"/>
+        <activity
+                android:name=".activity.account.FinishInfoActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustNothing|stateVisible"/>
+        <activity
+                android:name=".ui.account.register.BFinishInfoActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustNothing|stateVisible"/>
+        <activity
+                android:name=".activity.account.ResetPasswordActivity"
+                android:screenOrientation="portrait"/>
+
+        <service
+                android:name="com.umeng.update.net.DownloadingService"
+                android:process=":DownloadingService"/>
+
+        <activity
+                android:name="com.umeng.update.UpdateDialogActivity"
+                android:theme="@style/TranslucentNoTitle"/>
+
+        <meta-data
+                android:name="UMENG_APPKEY"
+                android:value="53bd1cb056240bf048087df2"/>
+        <meta-data
+                android:name="UMENG_MESSAGE_SECRET"
+                android:value="06dbb144ea84471c7dc8940fc0aba363"/>
+        <meta-data
+                android:name="UMENG_CHANNEL"
+                android:value="${UMENG_CHANNEL_VALUE}"/>
+        <meta-data
+                android:name="CHANNEL"
+                android:value="${UMENG_CHANNEL_VALUE}"/>
+        <meta-data
+                android:name="BUGLY_APP_CHANNEL"
+                android:value="${UMENG_CHANNEL_VALUE}"/>
+        <!-- shareSDK -->
+        <activity
+                android:name="com.mob.tools.MobUIShell"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                android:windowSoftInputMode="stateHidden|adjustResize">
+            <meta-data android:name="AuthorizeAdapter"
+                       android:value="com.xingin.xhs.utils.share.ShareAuthorizeAdapter"/>
+            <intent-filter android:priority="1000">
+                <data android:scheme="tencent100507190"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activity.DialogProxyActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/TranslucentNoTitle.TranslateStatusBar"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <!-- 微信分享回调 -->
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@style/TranslucentNoTitle"/>
+        <activity
+                android:name=".wxapi.WXPayEntryActivity"
+                android:exported="true"
+                android:launchMode="singleTop"/>
+        <activity
+                android:name=".activity.post.EditTextActivity"
+                android:clearTaskOnLaunch="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/MainFrameActivityTheme.Translucent"
+                android:windowSoftInputMode="adjustUnspecified|stateVisible"/>
+
+        <provider
+                android:name=".provider.XhsProvider"
+                android:authorities="com.xingin.xhs.android"/>
+
+        <meta-data
+                android:name="com.amap.api.v2.apikey"
+                android:value="a8082bf63cfdd7e5ae932f5608365d1a"/>
+        <!-- android:process=":xingin_push" -->
+        <service
+                android:name=".activity.post.PushDiscoveryService"
+                android:exported="false"/>
+
+        <!-- alipay -->
+        <activity
+                android:name="com.alipay.sdk.app.H5PayActivity"
+                android:configChanges="orientation|keyboardHidden|navigation"
+                android:exported="false"
+                android:hardwareAccelerated="false"
+                android:screenOrientation="behind"
+                android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity
+                android:name="com.alipay.sdk.auth.AuthActivity"
+                android:configChanges="orientation|keyboardHidden|navigation"
+                android:exported="false"
+                android:screenOrientation="behind"/>
+        <activity
+                android:name=".ui.shopping.GoodsListActivity"
+                android:exported="true"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="goodslist"
+                        android:pathPattern="/sale_event/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.shopping.CategoryGoodsListActivity"
+                android:exported="true"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="goodslist"
+                        android:pathPattern="/sub_category/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.shopping.StoreVendorListActivity"
+                android:exported="true"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="store_vender"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="store"
+                        android:pathPattern="/vendor/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activity.welcome.WelcomeActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.account.BCLoginActivity"
+                android:configChanges="locale|fontScale"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.NoTitle_FullScreen"
+                android:windowSoftInputMode="adjustNothing"/>
+        <activity
+                android:name=".ui.account.BCRegisterActivity"
+                android:configChanges="locale|fontScale"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.NoTitle_FullScreen"
+                android:windowSoftInputMode="adjustNothing|stateVisible"/>
+
+        <activity
+                android:name=".activity.tag.HotTagsActivity"
+                android:screenOrientation="portrait"/>
+
+        <!-- ping++SDK 注册 -->
+        <activity
+                android:name="com.pingplusplus.android.PaymentActivity"
+                android:configChanges="orientation|screenSize"
+                android:launchMode="singleTop"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+                android:name="com.unionpay.uppay.PayActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:configChanges="orientation|keyboardHidden"
+                android:excludeFromRecents="true"
+                android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+                android:name="com.unionpay.UPPayWapActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+                android:name=".ui.shopping.RelatedGoodsListActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.feedback.FeedbackActivity"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="message"
+                        android:path="/feedback"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.feedback.ReportActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize"/>
+        <activity
+                android:name=".ui.search.SearchActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.search.SearchBetaActivity"
+                android:configChanges="orientation|keyboardHidden"
+
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.note.NoteListActivity"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="notes_list"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.note.CustomListActivity"
+                android:exported="true"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="custom_list"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activity.WaitingActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.TackPictureActivity"
+                android:label="@string/title_activity_tack_picture"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.account.CountrySelectActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.post.TagPriceTypeListActivity"
+                android:hardwareAccelerated="false"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.FullScreen"/>
+        <activity
+                android:name=".activity.post.TagCityListActivity"
+                android:hardwareAccelerated="false"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.FullScreen"/>
+        <activity
+                android:name=".activity.post.TagBrandAndGoodsListActivity"
+                android:hardwareAccelerated="false"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.FullScreen"/>
+        <activity
+                android:name=".activity.post.TagStoreGoodsListActivity"
+                android:hardwareAccelerated="false"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.FullScreen"/>
+        <activity
+                android:name=".activity.AboutActivity"
+                android:screenOrientation="portrait"
+                android:label="@string/title_activity_about"/>
+        <activity
+                android:name=".activity.tag.TagsActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.AllGoodActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.common.FragmentContainerActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.search.SearchResultActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+
+        <service android:name="com.amap.api.location.APSService"/>
+
+        <activity
+                android:name=".activity.ValidateActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/TranslucentNoTitle"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".ui.note.NoteCollectedBoardsActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".activity.board.MoveCollectDialogActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/DialogActivity"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".ui.board.UserBoardListActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name=".ui.setting.PrivacySettingsActivity"
+                android:screenOrientation="portrait"/>
+
+        <!-- 小米推送 -->
+        <service
+                android:enabled="true"
+                android:process=":pushservice"
+                android:name="com.xiaomi.push.service.XMPushService"/>
+        <service
+                android:name="com.xiaomi.push.service.XMJobService"
+                android:enabled="true"
+                android:exported="false"
+                android:permission="android.permission.BIND_JOB_SERVICE"
+                android:process=":pushservice"/>
+        <!--注：此service必须在3.0.1版本以后（包括3.0.1版本）加入-->
+        <service
+                android:enabled="true"
+                android:exported="true"
+                android:name="com.xiaomi.mipush.sdk.PushMessageHandler"/>
+        <service android:enabled="true"
+                 android:name="com.xiaomi.mipush.sdk.MessageHandleService"/>
+        <!--注：此service必须在2.2.5版本以后（包括2.2.5版本）加入-->
+        <receiver
+                android:exported="true"
+                android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+                android:exported="false"
+                android:process=":pushservice"
+                android:name="com.xiaomi.push.service.receivers.PingReceiver">
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+                android:name=".push.MIPushMessageReceiver"
+                android:exported="true">
+
+            <!-- 这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名 -->
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR"/>
+            </intent-filter>
+        </receiver>
+
+
+        <activity android:name=".activity.DraftListActivity"/>
+        <activity
+                android:name=".ui.search.SearchGoodsResultActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.search.SearchBoardsResultActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.search.SearchUsersResultActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.message.NewCollectsActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.message.NewFansActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.shopping.NoteRelatedGoodsActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.explore.ScenarioListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.explore.HotTopicListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.user.EditSignActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.post.PhotoBrowsersActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.post.ImageProcessActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.FullScreen"
+                android:windowSoftInputMode="adjustNothing"/>
+        <activity
+                android:name=".ui.shopping.TakeCardPictureActivity"
+                android:screenOrientation="portrait">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+                android:name=".ui.shopping.SelectImageActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.post.PoiActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"/>
+        <activity
+                android:name=".ui.live.LivePlayActivity"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.NoTitle_FullScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="live_broadcast"
+                        android:pathPattern="/pull/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.live.LivePushActivity"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.NoTitle_FullScreen">
+
+            <!--  -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="live_broadcast"
+                        android:pathPattern="/push/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 消息收发service -->
+        <service
+                android:name="com.tencent.qalsdk.service.QalService"
+                android:exported="false"
+                android:process=":QALSERVICE"/>
+        <!-- 消息收发辅助service -->
+        <service
+                android:name="com.tencent.qalsdk.service.QalAssistService"
+                android:exported="false"
+                android:process=":QALSERVICE"/>
+        <!-- 离线消息广播接收器 -->
+        <receiver
+                android:name="com.tencent.qalsdk.QALBroadcastReceiver"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="com.tencent.qalsdk.broadcast.qal"/>
+            </intent-filter>
+        </receiver>
+        <!-- 系统消息广播接收器 -->
+        <receiver
+                android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
+                android:process=":QALSERVICE">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name=".activity.NetPingActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.post.SnapshotActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"/>
+
+        <receiver android:name=".receiver.XhsSecretCodeReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE"/>
+
+                <data
+                        android:host="20151127"
+                        android:scheme="android_secret_code"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name=".ui.friend.ImportWeiboFriendsGuidActivity"
+                android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".ui.friend.ImportContactsFriendsGuidActivity"
+                  android:screenOrientation="portrait">
+
+        </activity>
+
+        <uses-library android:name="org.simalliance.openmobileapi"
+                      android:required="false"/>
+        <activity android:name=".ui.tag.TagDetailActivity"
+                  android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ui.search.searchresult.SearchResultBetaActivity"
+                  android:launchMode="singleTask"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".ui.message.me.aggregate.MsgMeAggregateActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+                android:name=".ui.common.LinkProxyActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/MainFrameActivityTheme.Translucent"
+                android:windowSoftInputMode="adjustUnspecified|stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                        android:host="poi"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                        android:host="spv"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                        android:host="spu"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                        android:host="spv_skeleton"
+                        android:pathPattern="/.*"
+                        android:scheme="xhsdiscover"/>
+            </intent-filter>
+        </activity>
+
+        <service android:name=".utils.update.DownloadApkService" android:process=":updateApp"/>
+
+        <!--start umeng push-->
+        <service
+                android:name="com.taobao.accs.ChannelService"
+                android:exported="true"
+                android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.SERVICE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.ELECTION"/>
+            </intent-filter>
+        </service>
+
+        <service
+                android:name="com.taobao.accs.data.MsgDistributeService"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE"/>
+            </intent-filter>
+        </service>
+
+        <receiver
+                android:name="com.taobao.accs.EventReceiver"
+                android:process=":channel">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+                android:name="com.taobao.accs.ServiceReceiver"
+                android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.COMMAND"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.START_FROM_AGOO"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+                android:name="com.taobao.accs.ChannelService$KernelService"
+                android:process=":channel">
+        </service>
+
+        <service
+                android:name="org.android.agoo.accs.AgooService"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE"/>
+            </intent-filter>
+        </service>
+
+        <service android:name="com.umeng.message.UmengIntentService"
+                 android:exported="true">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE"/>
+            </intent-filter>
+        </service>
+
+        <receiver
+                android:name="com.taobao.agoo.AgooCommondReceiver"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="${applicationId}.intent.action.COMMAND"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+                android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+                android:exported="false"/>
+        <service
+                android:name="com.umeng.message.UmengMessageCallbackHandlerService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="com.umeng.messge.registercallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.enablecallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.disablecallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.message.handler.action"/>
+            </intent-filter>
+        </service>
+
+        <service
+                android:name="com.umeng.message.UmengDownloadResourceService"
+                android:exported="false"/>
+        <service
+                android:name="com.umeng.message.UmengMessageIntentReceiverService"
+                android:exported="true"
+                android:process=":channel">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService"/>
+            </intent-filter>
+        </service>
+        <provider
+                android:name="com.umeng.message.provider.MessageProvider"
+                android:authorities="${applicationId}.umeng.message"
+                android:exported="false"
+                android:process=":channel">
+            <grant-uri-permission android:pathPattern=".*"/>
+        </provider>
+        <!--end umeng push-->
+
+    </application>
+
+</manifest>
