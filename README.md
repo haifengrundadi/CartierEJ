@@ -1,10 +1,10 @@
-#CartierEJ 开源框架框架
+# CartierEJ 开源框架框架
 
-##CartierEJ是什么？
+## CartierEJ是什么？
 
 	CartierEJ是基于小红书Cartier开发的一个适合各种APP移动UI开源自动化框架，包括NATIVE和Hybird H5。
 
-##CariterEJ可以做哪些？
+## CariterEJ可以做哪些？
 
 	CariterEJ可以让你在几分钟之内实现单个设备上的UI移动化运行，包括常见的NATIVE和Hybird。
 
@@ -23,7 +23,7 @@
 
 	另外，需要安装相关的软件，Appium，并将手机和电脑通过USB或者相关的管理工具连接，保证能跟设备进行交互。
 
-##目标是什么？
+## 目标是什么？
 
 	实现一个模板式的移动自动化开发框架，开发者只需要花很低的时间，既可以实现一个Case的编写，并可以和DisCartierEJ
 	结合形成多设备同时run tests的局面，并能和Jenkins结合完成日常化的巡检。
