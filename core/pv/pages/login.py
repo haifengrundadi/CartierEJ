@@ -2,119 +2,118 @@
 # -*- coding: utf-8 -*-
 
 """
-    登录界面（除了手机号，也支持包含第三方（微信，qq，微博等）登录方式）
+    login page:
+    Including using mobile phone number login,
+    using wechat ,qq, Sina and so on login
+    @author Juan Liu
+    @date 2017/06/01
 """
 
-from core.pv.pages import BasePage
 import logging
+
+from core.pv.pages import BasePage
 
 logger = logging.getLogger(__name__)
 
 
 class FirstLoginPage(BasePage):
     """
-       流程： 主界面登录按钮
+       Flow： Main page login
     """
-    PAGE_NAME = u"首个登录界面--->"
+    PAGE_NAME = "First login page---"
 
     def __init__(self, driver):
         super(FirstLoginPage, self).__init__(driver)
 
-    def get_login_button(self):
+    def get_login_button_by_id(self, id=None):
         """
-            获取登录按钮
+            Get login button by id
         """
-        logger.info(self.PAGE_NAME + u"获取登录按钮")
-        btn_login = self.ui_locator.find_element_by_id("com.xingin.xhs:id/btn_login")
-        assert btn_login is not None
-        return btn_login
+        logger.info(self.PAGE_NAME + " get login button")
+        return self.ui_locator.find_element_by_id(id)
 
 
 class LoginPage(BasePage):
     """
-    --》使用密码登录
+        Login with password
     """
-    PAGE_NAME = u"手机号码快速登录界面--"
+    PAGE_NAME = "Login page with smart phone number--"
 
     def __init__(self, driver):
         super(LoginPage, self).__init__(driver)
 
-    def get_login_psw_button(self):
+    def get_login_psw_button_by_id(self, id=None):
         """
-            获取登录按钮
+            get login button
         """
-        logger.info(self.PAGE_NAME + u"获取登录按钮")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/tv_login_psw")
+        logger.info(self.PAGE_NAME + " get login button.")
+        return self.ui_locator.find_element_by_id(id)
 
-    def get_et_phone_txt(self):
+    def get_et_phone_txt_by_id(self, id=None):
         """
-            获取手机号填写框
+            get phone textview
         """
-        logger.info(self.PAGE_NAME + u"获取手机号填写框")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/et_phone")
+        logger.info(self.PAGE_NAME + " get phone textview.")
+        return self.ui_locator.find_element_by_id(id)
 
-    def get_next_btn(self):
+    def get_next_btn_by_id(self, id=None):
         """
-            获取下一步按钮
+            get next button
         """
-        logger.info(self.PAGE_NAME + u"获取下一步按钮")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/btn_next")
+        logger.info(self.PAGE_NAME + " get next button.")
+        return self.ui_locator.find_element_by_id(id)
 
 
 class PasswordLoginPage(BasePage):
     """
-        流程：填写手机号和密码 -》点击登录按钮
+        Flow：input phone number and password -> click login button
     """
-    PAGE_NAME = u"使用密码登录界面--"
+    PAGE_NAME = "Login page with password--"
 
     def __init__(self, driver):
         super(PasswordLoginPage, self).__init__(driver)
 
-    def get_phone_number_textview(self):
+    def get_phone_number_textview_by_id(self,id=id):
         """
-        获取密码登录界面的手机号填写文本框
-        :return:
+            get mobile phone text view
         """
-        logger.info(self.PAGE_NAME + u"获取手机号填写文本框")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/et_phone")
+        logger.info(self.PAGE_NAME + " get mobile phone text view")
+        return self.ui_locator.find_element_by_id(id)
 
-    def get_password_login_button(self):
+    def get_password_login_button_by_id(self,id=id):
         """
-        获取使用密码登录按钮
-        :return:
+            get login button
         """
-        logger.info(self.PAGE_NAME + u"获取登录按钮")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/btn_login")
+        logger.info(self.PAGE_NAME + " get login button.")
+        return self.ui_locator.find_element_by_id(id)
 
-    def get_password_textview(self):
+    def get_password_textview_by_id(self,id=id):
         """
-        获取密码登录界面，密码文本个框
-        :return:
+            get password textview
         """
-        logger.info(self.PAGE_NAME + u"获取密码登录文本框")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/et_psd")
+        logger.info(self.PAGE_NAME + " get password textview.")
+        return self.ui_locator.find_element_by_id(id)
 
 
 class CheckCodeLoginPage(BasePage):
     """
-       流程：填写手机号 -》填写验证码---》进入小红书
+        Flow：input phome number ->input check code--->enter app home
     """
-    PAGE_NAME = u"使用验证码登录界面--"
+    PAGE_NAME = "Login page with check code--"
 
     def __init__(self, driver):
         super(CheckCodeLoginPage, self).__init__(driver)
 
-    def get_check_code_txt(self):
+    def get_check_code_txt_by_id(self,id=id):
         """
-        获取密码登录界面，密码文本个框
-        :return:
+            get check code text view
         """
-        logger.info(self.PAGE_NAME + u"获取验证码登录文本框")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/et_ver_code")
+        logger.info(self.PAGE_NAME + " get check code text view.")
+        return self.ui_locator.find_element_by_id(id)
 
-    def get_login_btn(self):
+    def get_login_btn_by_id(self,id=id):
         """
-        获取登录按钮
+            Get Login button
         """
-        logger.info(self.PAGE_NAME+u"点击进入小红书")
-        return self.ui_locator.find_element_by_id("com.xingin.xhs:id/btn_login")
+        logger.info(self.PAGE_NAME + " click and enter home page.")
+        return self.ui_locator.find_element_by_id(id)

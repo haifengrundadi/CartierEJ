@@ -82,7 +82,7 @@ driver.quit()
 
 ~~~
 
-def switch_context(driver, context=u"WEBVIEW_***"):
+def switch_context(driver, context="WEBVIEW_***"):
     """
         1：环境不同，Native->To->Webview  or Webview->to->Native
         2：如果环境相同则不切换

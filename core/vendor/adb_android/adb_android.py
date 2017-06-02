@@ -8,7 +8,7 @@ import re
 import logging
 import os
 import time
-from core.utils.constant import PROJECT_PATH
+from core.utils.config import PROJECT_PATH
 from subprocess import check_output, CalledProcessError, call
 
 logger = logging.getLogger(__name__)
@@ -20,9 +20,9 @@ def connect_remote_devices(remote_address=None):
     :param remote_address:
     :return:
     """
-    logger.info(u" 启动remote adb server")
+    logger.info(" start remote adb server ")
     if remote_address is None:
-        logger.info(u" remote address 不可以为空")
+        logger.info(" remote address cannot empty ")
         return
     adb_connect_remote_devices_cmd = [v.ADB_COMMAND_PREFIX, v.ADB_COMMAND_CONNECT, remote_address]
     return _exec_command(adb_cmd=adb_connect_remote_devices_cmd)
@@ -30,8 +30,7 @@ def connect_remote_devices(remote_address=None):
 
 def get_phone_version():
     """
-    获得andriod手机的version
-    :return:
+    get phone version
     """
     cmd = [v.ADB_COMMAND_PREFIX, v.ADB_COMMAND_SHELL, 'getprop ro.build.version.release']
     return _exec_command(cmd)
@@ -46,12 +45,12 @@ def screen_shot(pics_name=None):
     然后
     通过命令拷贝流程， 从 device-》container-》本地
     """
-    logger.info(u" 开始截屏")
+    logger.info(" start screen shot")
     pc_path = os.path.join(PROJECT_PATH, "logs/screenshot")  # 本地保存地点
     mobile_path = '/data/local/tmp/tmp.png'  # 在devices上的临时存储地点
     if not os.path.isdir(pc_path):
         os.makedirs(pc_path)
-    logger.info(u" 存储在本地:" + pc_path)
+    logger.info(" save path:" + pc_path)
     if pics_name is None:
         pics_name = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime(time.time()))
     wait_for_device()
@@ -61,26 +60,25 @@ def screen_shot(pics_name=None):
     os.popen("adb shell rm /data/local/tmp/tmp.png")
     adb_rm_cmd = v.ADB_COMMAND_RM + " " + mobile_path
     shell(adb_rm_cmd)
-    logger.info(u" 截屏成功")
+    logger.info(" success screen shot")
     return True
 
 
 def find_devices():
     """
-    查找有几台设备
-    :return:
+    find devices
     """
     adb_full_cmd = [v.ADB_COMMAND_PREFIX, v.ADB_COMMAND_DEVICES]
     rst = _exec_command(adb_full_cmd)
     devices = re.findall('r(.*?)\s+device', rst)
     if len(devices) > 1:
         deviceIds = devices[1:]
-        logger.info(u'共找到%s个手机' % str(len(devices) - 1))
+        logger.info('total find %s devices' % str(len(devices) - 1))
         for i in deviceIds:
-            logger.info(u'ID为%s' % i)
+            logger.info('ID is %s' % i)
         return deviceIds
     else:
-        logger.info(u'没有找到手机，请检查')
+        logger.info('cannot find devices，please check')
         return
 
 

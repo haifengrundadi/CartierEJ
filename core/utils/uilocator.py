@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    功能：目前封装Native元素定位
+    Function：Native locate element
     Reference Link https://github.com/appium/python-client
     @date 2016/10
     @author Juan Liu
@@ -17,10 +17,10 @@ logger = logging.getLogger(__name__)
 
 class UiLocator(object):
     """
-        封装元素定位
+    locate element
     """
 
-    CLASS_NAME = u"元素定位--->"
+    CLASS_NAME = "locate element---"
     TIME_OUT_TIME = 10
 
     def __init__(self, appium_driver):
@@ -28,19 +28,15 @@ class UiLocator(object):
 
     def find_element_by_name(self, name):
         """
-            通过name查找元素
-            :param name:
-            :return:
+        find element by name
         """
         el = (self.driver, self.TIME_OUT_TIME). \
-            until(lambda x: x.find_element_by_name(id))
+            until(lambda x: x.find_element_by_name(name=name))
         return el
 
     def find_element_by_id(self, id):
         """
-            通过id查找元素
-            :param id:
-            :return:
+        find element by id
         """
         el = Wait(self.driver, self.TIME_OUT_TIME). \
             until(lambda x: x.find_element_by_id(id))
@@ -48,7 +44,7 @@ class UiLocator(object):
 
     def find_elements_by_accessibility_id(self, els_id):
         """
-            通过id查找所有元素
+        find elements by id
         """
         els = Wait(self.driver, self.TIME_OUT_TIME). \
             until(lambda x: x.find_elements_by_accessibility_id(els_id))
@@ -56,9 +52,7 @@ class UiLocator(object):
 
     def find_elements_by_android_uiautomator(self, ui_query):
         """
-            通过uiatomator查找多个元素
-            :param ui_query:
-            :return:
+        find elements by ui automator
         """
         if 'com.xingin.xhs:id/img_select' in ui_query:
             # 此处的逻辑是 找不到图片 就返回一个None; 而不是 抛出一个异常
@@ -70,9 +64,7 @@ class UiLocator(object):
 
     def find_element_by_android_uiautomator(self, ui_query):
         """
-            通过uiatomator查找元素
-            :param ui_query:
-            :return:
+        find element by ui automator
         """
         el = Wait(self.driver, self.TIME_OUT_TIME). \
             until(lambda x: x.find_element_by_android_uiautomator(ui_query))
@@ -90,6 +82,4 @@ class UiLocator(object):
             :Usage:
                 driver.swipe(100, 100, 100, 400)
         """
-        # `swipe` is something like press-wait-move_to-release, which the server
-        # will translate into the correct action
         self.driver.swipe(start_x, start_y, end_x, end_y, duration)

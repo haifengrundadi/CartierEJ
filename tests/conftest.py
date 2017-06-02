@@ -69,14 +69,13 @@
 
 """
 -------------test use-----------------------
-以下用于开发时调试一台手机进行使用
+used to develop
 """
 
-
+import logging
 import pytest
 from appium.webdriver.webdriver import WebDriver as Driver
 from core.utils.log import LOGGER
-import logging
 
 LOGGER.info("*********Begin**********")
 logger = logging.getLogger(__name__)
@@ -84,7 +83,11 @@ logger = logging.getLogger(__name__)
 
 @pytest.fixture(scope="session")
 def desired_one_cap(request):
-    """用于测试手机的效果"""
+    """
+    used to test one device
+    :param request:
+    :return:
+    """
     desired_caps = {}
     desired_caps['platformName'] = 'Android'
     desired_caps['platformVersion'] = '5.0'
@@ -100,12 +103,17 @@ def desired_one_cap(request):
 
 @pytest.fixture(scope="session")
 def appium_driver(request, desired_one_cap):
-    """启动appium"""
+    """
+    start appium driver
+    :param request:
+    :param desired_one_cap:  one device info
+    :return:
+    """
 
     appium_web_driver = Driver('http://0.0.0.0:4723/wd/hub', desired_one_cap)
 
     def fin():
-        """销毁并退出当前session"""
+        """quit current session"""
         appium_web_driver.close_app()
         appium_web_driver.quit()
 

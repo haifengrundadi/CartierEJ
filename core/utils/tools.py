@@ -2,27 +2,28 @@
 # -*- coding: utf-8 -*-
 
 """
-    功能：本模块定义了一些函数工具，用于其他类的使用
+    Function：define some functions
     @date 2017/05/23
     @author Juan Liu
 """
 import logging
 import os
 import time
-from constant import SCREEN_SHOT_PC_PATH
+
+from config import SCREEN_SHOT_PC_PATH
 
 logger = logging.getLogger(__name__)
 
 
 def screen_shot(driver=None, filename=None):
     """
-        截取当前app的屏幕，用于排除异常情况
-        参数:
-        filename: 保存截图的地址
+        screen shot
+        Args:
+        filename: the path to save pictures
     """
-    logger.info(u" 开始截屏")
+    logger.info(" begin screen shot ")
     if driver is None:
-        logger.info(u"没有driver，截屏失败")
+        logger.info("no driver to used screen shot.")
         return False
     if not os.path.isdir(SCREEN_SHOT_PC_PATH):
         os.makedirs(SCREEN_SHOT_PC_PATH)
@@ -32,7 +33,7 @@ def screen_shot(driver=None, filename=None):
     else:
         filename = time_tag + filename
     filename = os.path.join(SCREEN_SHOT_PC_PATH, filename)
-    logger.info(u"存储在容器中的地址为：" + filename)
+    logger.info(" the screen shot pictures saved in container path is ：" + filename)
     png = driver.get_screenshot_as_png()
     try:
         with open(filename, 'wb') as f:
@@ -41,20 +42,22 @@ def screen_shot(driver=None, filename=None):
         return False
     finally:
         del png
-    logger.info(u"截屏成功")
+    logger.info(" success screen shot.")
     return True
 
 
-def switch_context(driver, context=u"WEBVIEW_com.xingin.xhs"):
+def switch_context(driver, context="WEBVIEW_com.xingin.xhs"):
     """
-        1：环境不同，Native->To->Webview  or Webview->to->Native
-        2：如果环境相同则不切换
+    if context different current context
+        Native->To->Webview  or Webview->to->Native
+    else
+        donn't change
     """
     contexts = driver.contexts
     if context in contexts:
-        logger.info(u"切换到相应的环境下面")
+        logger.info("change to " + context + " context.")
         driver.switch_to.context(context)
         return True
     else:
-        logger.error(u"没有切换到相应的环境下面，当前的环境为" + str(driver.context))
+        logger.error("cannot change context and current context is " + str(driver.context))
         return False

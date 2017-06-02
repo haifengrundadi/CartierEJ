@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""自动化测试框架异常模块"""
+"""
+    Exception module to deal with errors
+    @author Juan Liu
+    @date 2016
+"""
 
 from selenium.common.exceptions import WebDriverException
 import logging
@@ -8,9 +12,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class CartierException(WebDriverException):
+class CartierEJException(WebDriverException):
     pass
 
 
-class UICoreBaseException(CartierException):
+class UICoreBaseException(CartierEJException):
     pass

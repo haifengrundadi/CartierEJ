@@ -2,16 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-    功能：用来进行元素查找超时 引用common下的代码，并进行封装
+    Function：Used to set wait when find elements(references code from common module)
     @date 2016/10
     @author Juan Liu
 """
 import logging
 import time
 
-from core.utils.white_list.native_white_list import run_all_methods
-from core.utils.tools import screen_shot
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+
+from core.utils.tools import screen_shot
+from core.utils.white_list.native_white_list import run_all_methods
 
 logger = logging.getLogger(__name__)
 POLL_FREQUENCY = 0.5  # How long to sleep inbetween calls to the method
@@ -20,13 +21,14 @@ IGNORED_EXCEPTIONS = (NoSuchElementException,)  # exceptions ignored during call
 
 class Wait(object):
     """
-        Native_APP查找元素等待
+        Native find element wait
     """
 
-    CLASS_NAME = u"Native_APP查找元素等待___"
+    CLASS_NAME = "Native_wait___"
 
     def __init__(self, driver, timeout, poll_frequency=POLL_FREQUENCY, ignored_exceptions=None):
-        """Constructor, takes a WebDriver instance and timeout in seconds.
+        """
+        Constructor, takes a WebDriver instance and timeout in seconds.
 
            :Args:
             - Waitdriver - Instance of WebDriver (Ie, Firefox, Chrome or Remote)
@@ -80,11 +82,11 @@ class Wait(object):
                 stacktrace = getattr(exc, 'stacktrace', None)
             time.sleep(self._poll)
             if time.time() > end_time:
-                logger.exception(self.CLASS_NAME + u"时间超时元素没有找到！")
+                logger.exception(self.CLASS_NAME + " cannot find elements after wait-time-out！")
                 try:
                     res = run_all_methods(self._driver)
                 except NoSuchElementException:
-                    logger.error(u"在查找白名单的过程中，出现错误！")
+                    logger.error(self.CLASS_NAME+" occur error when run white list")
                     screen_shot(driver=self._driver, filename=self.CLASS_NAME + ".png")
                     raise NoSuchElementException(message, screen, stacktrace)
                 value = method(self._driver)
@@ -93,7 +95,7 @@ class Wait(object):
                 elif not value and not res:
                     return self.until(method, message='')
                 elif not value and res:
-                    logger.error(self.CLASS_NAME + u"找不到元素,并且不在白名单中！")
+                    logger.error(self.CLASS_NAME + " cannot find element and don't exist in white list")
                     screen_shot(driver=self._driver, filename=self.CLASS_NAME + ".png")
                     raise NoSuchElementException(message, screen, stacktrace)
         return value
