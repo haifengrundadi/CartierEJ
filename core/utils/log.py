@@ -9,7 +9,7 @@ import os
 import yaml
 import logging.config
 
-from core.utils.config import PROJECT_PATH, RESOURCE_PATH
+from core.utils.constant import PROJECT_PATH, RESOURCE_PATH
 
 _LOG_FILE_DIRECTORY = os.path.abspath(os.path.join(PROJECT_PATH, "logs"))
 

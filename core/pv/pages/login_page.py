@@ -111,7 +111,7 @@ class CheckCodeLoginPage(BasePage):
         logger.info(self.PAGE_NAME + " get check code text view.")
         return self.ui_locator.find_element_by_id(id)
 
-    def get_login_btn_by_id(self,id=id):
+    def get_login_btn_by_id(self, id=id):
         """
             Get Login button
         """

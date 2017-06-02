@@ -7,7 +7,8 @@
 """
 
 from core.action import BaseAction
-from core.pv.pages.login import FirstLoginPage, LoginPage, PasswordLoginPage, CheckCodeLoginPage
+from core.pv.pages.login_page import FirstLoginPage, LoginPage, PasswordLoginPage, CheckCodeLoginPage
+from core.pv.pages.home_page import HomePage
 import logging
 
 logger = logging.getLogger(__name__)
@@ -49,7 +50,7 @@ class LoginAction(BaseAction):
             login with phone number and password
         """
         if phone_number is None or password is None:
-            logger.info(self.ACTION_NAME + " please assign phone number vale and password.")
+            logger.info(self.ACTION_NAME + " please input phone number and password.")
             return
         self.action()
         self.login_action()
@@ -72,6 +73,8 @@ class LoginAction(BaseAction):
         logger.info(self.ACTION_NAME + "click login button.")
         assert password_login_button is not None
         password_login_button.click()
+
+        self.check_if_login_success()
 
     def with_check_code_login_action(self, phone_number=None, code=None):
         """
@@ -104,3 +107,17 @@ class LoginAction(BaseAction):
         assert login_btn is not None
         logger.info(self.ACTION_NAME + "click and enter main page.")
         login_btn.click()
+
+        self.check_if_login_success()
+
+    def check_if_login_success(self):
+        """
+            check if login success
+        """
+        logger.info(self.ACTION_NAME + " through finding shop tab on main page \t\n "
+                                       " to check if login success.")
+        home_page = HomePage(self.driver)
+        shop_tab_id = 'com.xingin.xhs:id/btnTabShop'
+        shop_tab = home_page.get_shop_tab_by_id(id=shop_tab_id)
+        assert shop_tab is not None
+        logger.info(self.ACTION_NAME + " login success!")

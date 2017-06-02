@@ -15,7 +15,7 @@ from core.utils.tools import screen_shot
 from core.utils.white_list.native_white_list import run_all_methods
 
 logger = logging.getLogger(__name__)
-POLL_FREQUENCY = 0.5  # How long to sleep inbetween calls to the method
+POLL_FREQUENCY = 0.5  # time to sleep inbetween calls to the method
 IGNORED_EXCEPTIONS = (NoSuchElementException,)  # exceptions ignored during calls to the method
 
 
@@ -82,7 +82,7 @@ class Wait(object):
                 stacktrace = getattr(exc, 'stacktrace', None)
             time.sleep(self._poll)
             if time.time() > end_time:
-                logger.exception(self.CLASS_NAME + " cannot find elements after wait-time-out！")
+                logger.exception(self.CLASS_NAME + " cannot find elements after wait-time-out!")
                 try:
                     res = run_all_methods(self._driver)
                 except NoSuchElementException:

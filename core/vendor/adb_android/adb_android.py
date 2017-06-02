@@ -8,7 +8,7 @@ import re
 import logging
 import os
 import time
-from core.utils.config import PROJECT_PATH
+from core.utils.constant import PROJECT_PATH
 from subprocess import check_output, CalledProcessError, call
 
 logger = logging.getLogger(__name__)

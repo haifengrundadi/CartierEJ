@@ -33,7 +33,7 @@ class UpgradeMessageBox(NativeWhiteList):
     """
         Upgrade Message Box
     """
-    CLASS_NAME = "Native white list--->upgrade message box"
+    CLASS_NAME = "Native_white_list--->upgrade_message_box"
 
     def __init__(self, driver):
         super(UpgradeMessageBox, self).__init__(driver)
@@ -41,29 +41,28 @@ class UpgradeMessageBox(NativeWhiteList):
     def action(self, decision=False):
         """
         click elements on pop message box
+        :arg
+        decision: False --> cancel button, True --> upgrade button
         """
-        try:
-            upgrade_button_id = "android:id/button1"
-            cancel_button_id = "android:id/button2"
-            upgrade_button = self.get_upgrade_btn_by_id(id=upgrade_button_id)
-            cancel_button = self.get_cancel_btn_by_id(id=cancel_button_id)
-        except NoSuchElementException:
-            upgrade_button = None
-            cancel_button = None
+        if decision:
+            id = "android:id/button1"
+        else:
+            id = "android:id/button2"
 
-        assert upgrade_button is not None
-        assert cancel_button is not None
+        try:
+            btn = self.get_upgrade_btn_by_id(id=id)
+        except NoSuchElementException:
+            btn = None
+
+        assert btn is not None
 
         screen_shot(driver=self.driver, filename=self.CLASS_NAME + ".png")
 
-        if decision and upgrade_button:
+        if decision:
             logger.info(self.CLASS_NAME + " click upgrade button.")
-            upgrade_button.click()
-        elif not decision and cancel_button:
-            logger.info(self.CLASS_NAME + " click cancel button.")
-            cancel_button.click()
         else:
-            pass
+            logger.info(self.CLASS_NAME + " click cancel button.")
+        btn.click()
 
     def get_upgrade_btn_by_id(self, id=None):
         """
@@ -88,7 +87,7 @@ def run_all_methods(driver):
         False ： represents find and deal with
         True : don't deal with
     """
-    logger.info("Run all known message box to deal with the situation.")
+    logger.info(" Run all known message box to deal with the situation.")
     white_list = []
     upgrade_msg_box = UpgradeMessageBox(driver)
     white_list.append(upgrade_msg_box)

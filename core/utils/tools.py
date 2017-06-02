@@ -10,7 +10,7 @@ import logging
 import os
 import time
 
-from config import SCREEN_SHOT_PC_PATH
+from constant import SCREEN_SHOT_PC_PATH
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def screen_shot(driver=None, filename=None):
     else:
         filename = time_tag + filename
     filename = os.path.join(SCREEN_SHOT_PC_PATH, filename)
-    logger.info(" the screen shot pictures saved in container path is ：" + filename)
+    logger.info("The screen shot pictures saved in container path is :" + filename)
     png = driver.get_screenshot_as_png()
     try:
         with open(filename, 'wb') as f:
